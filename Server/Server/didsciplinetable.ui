@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TournamentTable</class>
+ <widget class="QDialog" name="TournamentTable">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1078</width>
+    <height>306</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>980</x>
+     <y>20</y>
+     <width>81</width>
+     <height>241</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>921</width>
+     <height>261</height>
+    </rect>
+   </property>
+   <property name="sortingEnabled">
+    <bool>true</bool>
+   </property>
+   <column>
+    <property name="text">
+     <string>Participant</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Target 1</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Target 2</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Target 3</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Target 4</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Target 5</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Target 6</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Time</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Score</string>
+    </property>
+   </column>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>TournamentTable</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>TournamentTable</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
