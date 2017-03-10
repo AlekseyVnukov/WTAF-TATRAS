@@ -31,4 +31,6 @@ HEADERS  += mainwindow.h \
     tournamenttable.h
 
 FORMS    += mainwindow.ui \
-    didsciplinetable.ui
+    disciplinetable.ui
+
+STATECHARTS +=

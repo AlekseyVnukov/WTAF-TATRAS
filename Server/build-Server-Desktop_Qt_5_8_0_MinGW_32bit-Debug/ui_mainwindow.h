@@ -14,8 +14,11 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPlainTextEdit>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QToolBar>
@@ -28,6 +31,13 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QTableWidget *participantTable;
+    QPushButton *groupsExport;
+    QLabel *label;
+    QPlainTextEdit *groupsNumber;
+    QPushButton *addEntry;
+    QPushButton *saveTable;
+    QPushButton *loadTable;
+    QPushButton *removeRow;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -54,6 +64,27 @@ public:
         participantTable->setHorizontalHeaderItem(4, __qtablewidgetitem4);
         participantTable->setObjectName(QStringLiteral("participantTable"));
         participantTable->setGeometry(QRect(10, 30, 501, 241));
+        groupsExport = new QPushButton(centralWidget);
+        groupsExport->setObjectName(QStringLiteral("groupsExport"));
+        groupsExport->setGeometry(QRect(20, 290, 75, 23));
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(530, 40, 81, 16));
+        groupsNumber = new QPlainTextEdit(centralWidget);
+        groupsNumber->setObjectName(QStringLiteral("groupsNumber"));
+        groupsNumber->setGeometry(QRect(610, 30, 101, 31));
+        addEntry = new QPushButton(centralWidget);
+        addEntry->setObjectName(QStringLiteral("addEntry"));
+        addEntry->setGeometry(QRect(110, 290, 75, 23));
+        saveTable = new QPushButton(centralWidget);
+        saveTable->setObjectName(QStringLiteral("saveTable"));
+        saveTable->setGeometry(QRect(280, 290, 75, 23));
+        loadTable = new QPushButton(centralWidget);
+        loadTable->setObjectName(QStringLiteral("loadTable"));
+        loadTable->setGeometry(QRect(390, 290, 75, 23));
+        removeRow = new QPushButton(centralWidget);
+        removeRow->setObjectName(QStringLiteral("removeRow"));
+        removeRow->setGeometry(QRect(190, 290, 75, 23));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -84,6 +115,12 @@ public:
         ___qtablewidgetitem3->setText(QApplication::translate("MainWindow", "Gender", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem4 = participantTable->horizontalHeaderItem(4);
         ___qtablewidgetitem4->setText(QApplication::translate("MainWindow", "Rank", Q_NULLPTR));
+        groupsExport->setText(QApplication::translate("MainWindow", "Form Groups", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindow", "Groups number", Q_NULLPTR));
+        addEntry->setText(QApplication::translate("MainWindow", "Add", Q_NULLPTR));
+        saveTable->setText(QApplication::translate("MainWindow", "Save", Q_NULLPTR));
+        loadTable->setText(QApplication::translate("MainWindow", "Load", Q_NULLPTR));
+        removeRow->setText(QApplication::translate("MainWindow", "Remove", Q_NULLPTR));
     } // retranslateUi
 
 };
