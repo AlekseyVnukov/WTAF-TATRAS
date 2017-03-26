@@ -15,9 +15,9 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
@@ -33,11 +33,11 @@ public:
     QTableWidget *participantTable;
     QPushButton *groupsExport;
     QLabel *label;
-    QPlainTextEdit *groupsNumber;
     QPushButton *addEntry;
     QPushButton *saveTable;
     QPushButton *loadTable;
     QPushButton *removeRow;
+    QLineEdit *lineEdit;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -73,9 +73,6 @@ public:
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(620, 40, 101, 16));
-        groupsNumber = new QPlainTextEdit(centralWidget);
-        groupsNumber->setObjectName(QStringLiteral("groupsNumber"));
-        groupsNumber->setGeometry(QRect(620, 70, 101, 31));
         addEntry = new QPushButton(centralWidget);
         addEntry->setObjectName(QStringLiteral("addEntry"));
         addEntry->setGeometry(QRect(20, 290, 75, 23));
@@ -88,15 +85,17 @@ public:
         removeRow = new QPushButton(centralWidget);
         removeRow->setObjectName(QStringLiteral("removeRow"));
         removeRow->setGeometry(QRect(130, 290, 75, 23));
+        lineEdit = new QLineEdit(centralWidget);
+        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+        lineEdit->setGeometry(QRect(620, 80, 113, 20));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 890, 20));
+        menuBar->setGeometry(QRect(0, 0, 890, 21));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
         MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
-        MainWindow->insertToolBarBreak(mainToolBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);

@@ -6,12 +6,19 @@
 #include <QDebug>
 #include <QJsonArray>
 #include <QJsonDocument>
-#include <stack>
+#include <vector>
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+
+using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    //TODO: TABLE VALIDATION NEEDED!!!
+
     QString name = QString("Enter Name");
     ui->setupUi(this);
     ui->participantTable->setRowCount(1);
@@ -24,16 +31,13 @@ MainWindow::MainWindow(QWidget *parent) :
             ui->participantTable->setItem(0,i,aitem);
         }
     }
-        ui->participantTable->item(ui->participantTable->rowCount()-1,0)->setText("Enter Name");
-        ui->participantTable->item(ui->participantTable->rowCount()-1,1)->setText("Enter Class");
-        ui->participantTable->item(ui->participantTable->rowCount()-1,2)->setText("Enter Age");
-        ui->participantTable->item(ui->participantTable->rowCount()-1,3)->setText("Enter Gender");
-        ui->participantTable->item(ui->participantTable->rowCount()-1,4)->setText("Enter Rank");
-//        aitem->setText(QString("Enter Name"));
-//        aitem->setText(QString("Enter Class"));
-//        aitem->setText(QString("Enter Age"));
-//        aitem->setText(QString("Enter Gender"));
-//        aitem->setText(QString("Enter Rank"));
+    ui->participantTable->item(ui->participantTable->rowCount()-1,0)->setText("Enter Name");
+    ui->participantTable->item(ui->participantTable->rowCount()-1,1)->setText("Enter Class");
+    ui->participantTable->item(ui->participantTable->rowCount()-1,2)->setText("Enter Age");
+    ui->participantTable->item(ui->participantTable->rowCount()-1,3)->setText("Enter Gender");
+    ui->participantTable->item(ui->participantTable->rowCount()-1,4)->setText("Enter Rank");
+    QIntValidator *groupNumValidator = new  QIntValidator(this);
+    ui->lineEdit->setValidator(groupNumValidator);
 }
 
 MainWindow::~MainWindow()
@@ -53,11 +57,11 @@ void MainWindow::on_addEntry_clicked()
             ui->participantTable->setItem(ui->participantTable->rowCount()-1,i,aitem);
         }
     }
-        ui->participantTable->item(ui->participantTable->rowCount()-1,0)->setText("Enter Name");
-        ui->participantTable->item(ui->participantTable->rowCount()-1,1)->setText("Enter Class");
-        ui->participantTable->item(ui->participantTable->rowCount()-1,2)->setText("Enter Age");
-        ui->participantTable->item(ui->participantTable->rowCount()-1,3)->setText("Enter Gender");
-        ui->participantTable->item(ui->participantTable->rowCount()-1,4)->setText("Enter Rank");
+    ui->participantTable->item(ui->participantTable->rowCount()-1,0)->setText("Enter Name");
+    ui->participantTable->item(ui->participantTable->rowCount()-1,1)->setText("Enter Class");
+    ui->participantTable->item(ui->participantTable->rowCount()-1,2)->setText("Enter Age");
+    ui->participantTable->item(ui->participantTable->rowCount()-1,3)->setText("Enter Gender");
+    ui->participantTable->item(ui->participantTable->rowCount()-1,4)->setText("Enter Rank");
 
 }
 
@@ -68,19 +72,19 @@ void MainWindow::on_saveTable_clicked()
     QFile savefile("participants.tab");
     for(int i =0; i < ui->participantTable->rowCount(); i++)
     {
-//        if (ui->participantTable->item(i, 0)->text() == QString("") ||
-//                ui->participantTable->item(i, 1)->text() == QString("")||
-//                ui->participantTable->item(i, 2)->text() == QString("")||
-//                ui->participantTable->item(i, 3)->text() == QString("")||
-//                ui->participantTable->item(i, 4)->text() == QString(""))
-//            return;
+        //        if (ui->participantTable->item(i, 0)->text() == QString("") ||
+        //                ui->participantTable->item(i, 1)->text() == QString("")||
+        //                ui->participantTable->item(i, 2)->text() == QString("")||
+        //                ui->participantTable->item(i, 3)->text() == QString("")||
+        //                ui->participantTable->item(i, 4)->text() == QString(""))
+        //            return;
 
-            tableEntry["name"] = ui->participantTable->item(i, 0)->text();
-            tableEntry["class"] = ui->participantTable->item(i, 1)->text();
-            tableEntry["age"] = ui->participantTable->item(i, 2)->text();
-            tableEntry["gender"] = ui->participantTable->item(i, 3)->text();
-            tableEntry["rank"] = ui->participantTable->item(i, 4)->text();
-            jsonTable.append(tableEntry);
+        tableEntry["name"] = ui->participantTable->item(i, 0)->text();
+        tableEntry["class"] = ui->participantTable->item(i, 1)->text();
+        tableEntry["age"] = ui->participantTable->item(i, 2)->text();
+        tableEntry["gender"] = ui->participantTable->item(i, 3)->text();
+        tableEntry["rank"] = ui->participantTable->item(i, 4)->text();
+        jsonTable.append(tableEntry);
 
     }
 
@@ -97,11 +101,9 @@ void MainWindow::on_loadTable_clicked()
     QFile jsonFile("participants.tab");
     jsonFile.open(QFile::ReadOnly);
     QJsonDocument jsonDoc = QJsonDocument().fromJson(jsonFile.readAll());
-//    qDebug() << "jsonDoc array check";
-//    qDebug() << jsonDoc.isArray();
-//    qDebug() << "<<<";
-    QJsonArray jsonArray = jsonDoc.array();
 
+    QJsonArray jsonArray = jsonDoc.array();
+    //cleaning and reiniting table headers
     ui->participantTable->clear();
     for (int i = 0; i < ui->participantTable->columnCount(); i++)
     {
@@ -117,7 +119,7 @@ void MainWindow::on_loadTable_clicked()
     ui->participantTable->horizontalHeaderItem(2)->setText("Age");
     ui->participantTable->horizontalHeaderItem(3)->setText("Gender");
     ui->participantTable->horizontalHeaderItem(4)->setText("Rank");
-
+    //reinit full loaded size and filling
     ui->participantTable->setRowCount(jsonArray.size());
 
     for (int i = 0; i < ui->participantTable->rowCount(); i++)
@@ -131,15 +133,12 @@ void MainWindow::on_loadTable_clicked()
                 ui->participantTable->setItem(i,j,aitem);
             }
         }
-        ui->participantTable->item(i, 0)->setText(jsonArray.at(i).toObject()["class"].toString());
-        ui->participantTable->item(i, 1)->setText(jsonArray.at(i).toObject()["age"].toString());
-        ui->participantTable->item(i, 2)->setText(jsonArray.at(i).toObject()["gender"].toString());
-        ui->participantTable->item(i, 3)->setText(jsonArray.at(i).toObject()["rank"].toString());
-        ui->participantTable->item(i, 4)->setText(jsonArray.at(i).toObject()["name"].toString());
-        qDebug() << "checking jsonArray.at";
-//        qDebug() << jsonArray.at(i).toObject()["class"].toString(); qDebug() << i; qDebug() << "<<<<";
+        ui->participantTable->item(i, 0)->setText(jsonArray.at(i).toObject()["name"].toString());
+        ui->participantTable->item(i, 1)->setText(jsonArray.at(i).toObject()["class"].toString());
+        ui->participantTable->item(i, 2)->setText(jsonArray.at(i).toObject()["age"].toString());
+        ui->participantTable->item(i, 3)->setText(jsonArray.at(i).toObject()["gender"].toString());
+        ui->participantTable->item(i, 4)->setText(jsonArray.at(i).toObject()["rank"].toString());
 
-//        ui->participantTable->sortItems(0);
 
     }
 }
@@ -147,15 +146,60 @@ void MainWindow::on_loadTable_clicked()
 void MainWindow::on_removeRow_clicked()
 {
     if(ui->participantTable->rowCount() > 1)
-//        ui->participantTable->removeRow(ui->participantTable->rowCount()-1);
+        //        ui->participantTable->removeRow(ui->participantTable->rowCount()-1);
         ui->participantTable->removeRow(ui->participantTable->row(ui->participantTable->currentItem()));
 }
 
-//void MainWindow::on_groupsExport_clicked()
-//{
-//    std::stack nameStack;
-//    for (int i = 0; i < ui->participantTable->rowCount(); i++)
-//    {
-//        nameStack.push(ui->participantTable->item(i,0)->text());
-//    }
-//}
+void MainWindow::on_groupsExport_clicked()
+{
+    vector<QString> namevector;
+    srand(time(NULL));
+    int rname;
+
+    //forming vector
+    for (int i = 0; i < ui->participantTable->rowCount(); i++)
+    {
+        namevector.push_back(ui->participantTable->item(i,0)->text());
+    }
+    int gcount = ui->lineEdit->text().toInt();
+    int gparts = namevector.size() / gcount;
+    if (gcount * gparts < namevector.size())
+        gparts++;
+
+    int tmpstep = 0;
+
+    //arr[i][j] ==> every i is a group
+    QString arr[gcount][gparts];
+
+    //randomizer magic (vector --random-> qstring array
+    while (namevector.size() > 0)
+    {
+        for (int i = 0; i < gcount; i++)
+        {
+            if (namevector.size() > 0)
+            {
+                rname = rand() % namevector.size();
+                arr[i][tmpstep] = namevector.at(rname);
+                namevector.erase(namevector.begin()+rname);
+            }
+        }
+        tmpstep++;
+    }
+
+    //saving to files
+    //TODO: choose directory to save
+    for (int i = 0 ; i < gcount; i++)
+    {
+        QString filename("group"+QString::number(i)+".tab");
+        QFile savefile(filename);
+        QJsonArray jsonTable;
+        for(int j = 0; j < gparts; j++)
+        {
+            jsonTable.append(arr[i][j]);
+        }
+        QJsonDocument jsonDoc(jsonTable);
+        savefile.open(QFile::WriteOnly);
+        savefile.write(jsonDoc.toJson());
+    }
+}
+

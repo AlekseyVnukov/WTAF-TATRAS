@@ -23,6 +23,8 @@ private slots:
 
     void on_removeRow_clicked();
 
+    void on_groupsExport_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
